@@ -1,0 +1,227 @@
+{
+  "info": {
+    "_postman_id": "7c8b7c4e-8f8f-4c7d-9a7a-4a2b8e4f4b21",
+    "name": "Recipes CRUD API",
+    "description": "Complete Postman documentation for the Recipes CRUD API. Import this collection and set the baseUrl variable before testing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api/recipes"
+    },
+    {
+      "key": "recipeId",
+      "value": ""
+    },
+    {
+      "key": "healthUrl",
+      "value": "http://localhost:5000/health"
+    }
+  ],
+  "item": [
+    {
+      "name": "Create Recipe",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Paneer Butter Masala\",\n  \"description\": \"Creamy Indian paneer curry with tomato and butter.\",\n  \"ingredients\": [\n    \"250g paneer\",\n    \"2 tomatoes\",\n    \"1 onion\",\n    \"2 tbsp butter\",\n    \"1 tsp garam masala\",\n    \"100ml cream\",\n    \"Salt to taste\"\n  ],\n  \"instructions\": \"Cook onion and tomatoes, blend into a smooth sauce, add butter and spices, then simmer paneer with cream for a few minutes.\",\n  \"prepTime\": 15,\n  \"cookTime\": 25,\n  \"servings\": 4,\n  \"category\": \"Main Course\",\n  \"imageUrl\": \"https://example.com/paneer.jpg\"\n}"
+        },
+        "url": "{{baseUrl}}",
+        "description": "Creates a new recipe and returns the created document."
+      },
+      "response": [
+        {
+          "name": "201 Created",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\": \"Paneer Butter Masala\", \"description\": \"Creamy Indian paneer curry with tomato and butter.\", \"ingredients\": [\"250g paneer\", \"2 tomatoes\", \"1 onion\"], \"instructions\": \"Cook the sauce and simmer paneer with cream.\", \"prepTime\": 15, \"cookTime\": 25, \"servings\": 4, \"category\": \"Main Course\", \"imageUrl\": \"\"}"
+            },
+            "url": "{{baseUrl}}"
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Recipe created successfully\",\n  \"data\": {\n    \"id\": \"66a000000000000000000001\",\n    \"title\": \"Paneer Butter Masala\",\n    \"description\": \"Creamy Indian paneer curry with tomato and butter.\",\n    \"ingredients\": [\n      \"250g paneer\",\n      \"2 tomatoes\",\n      \"1 onion\"\n    ],\n    \"instructions\": \"Cook the sauce and simmer paneer with cream.\",\n    \"prepTime\": 15,\n    \"cookTime\": 25,\n    \"servings\": 4,\n    \"category\": \"Main Course\",\n    \"imageUrl\": \"\",\n    \"createdAt\": \"2026-08-10T00:00:00.000Z\",\n    \"updatedAt\": \"2026-08-10T00:00:00.000Z\"\n  }\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "  const json = pm.response.json();",
+              "  pm.collectionVariables.set('recipeId', json.data.id);",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get All Recipes",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}",
+        "description": "Retrieves all recipes sorted by newest first."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": true,\n  \"count\": 1,\n  \"data\": [\n    {\n      \"id\": \"66a000000000000000000001\",\n      \"title\": \"Paneer Butter Masala\",\n      \"description\": \"Creamy Indian paneer curry with tomato and butter.\",\n      \"ingredients\": [\n        \"250g paneer\",\n        \"2 tomatoes\",\n        \"1 onion\"\n      ],\n      \"instructions\": \"Cook the sauce and simmer paneer with cream.\",\n      \"prepTime\": 15,\n      \"cookTime\": 25,\n      \"servings\": 4,\n      \"category\": \"Main Course\",\n      \"imageUrl\": \"\",\n      \"createdAt\": \"2026-08-10T00:00:00.000Z\",\n      \"updatedAt\": \"2026-08-10T00:00:00.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Recipe By ID",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/{{recipeId}}",
+        "description": "Retrieves one recipe by MongoDB ObjectId."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"66a000000000000000000001\",\n    \"title\": \"Paneer Butter Masala\",\n    \"description\": \"Creamy Indian paneer curry with tomato and butter.\",\n    \"ingredients\": [\n      \"250g paneer\",\n      \"2 tomatoes\",\n      \"1 onion\"\n    ],\n    \"instructions\": \"Cook the sauce and simmer paneer with cream.\",\n    \"prepTime\": 15,\n    \"cookTime\": 25,\n    \"servings\": 4,\n    \"category\": \"Main Course\",\n    \"imageUrl\": \"\",\n    \"createdAt\": \"2026-08-10T00:00:00.000Z\",\n    \"updatedAt\": \"2026-08-10T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Recipe",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Paneer Butter Masala - Updated\",\n  \"description\": \"Rich and creamy paneer curry with a smooth tomato sauce.\",\n  \"ingredients\": [\n    \"250g paneer\",\n    \"3 tomatoes\",\n    \"1 onion\",\n    \"2 tbsp butter\",\n    \"120ml cream\"\n  ],\n  \"instructions\": \"Blend cooked tomato and onion, add spices and butter, then simmer paneer and finish with cream.\",\n  \"prepTime\": 15,\n  \"cookTime\": 30,\n  \"servings\": 4,\n  \"category\": \"Indian\",\n  \"imageUrl\": \"\"\n}"
+        },
+        "url": "{{baseUrl}}/{{recipeId}}",
+        "description": "Updates a recipe by ID. Validation is enabled during updates."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Recipe updated successfully\",\n  \"data\": {\n    \"id\": \"66a000000000000000000001\",\n    \"title\": \"Paneer Butter Masala - Updated\",\n    \"description\": \"Rich and creamy paneer curry with a smooth tomato sauce.\",\n    \"ingredients\": [\n      \"250g paneer\",\n      \"3 tomatoes\",\n      \"1 onion\"\n    ],\n    \"instructions\": \"Blend cooked tomato and onion, add spices and butter, then simmer paneer and finish with cream.\",\n    \"prepTime\": 15,\n    \"cookTime\": 30,\n    \"servings\": 4,\n    \"category\": \"Indian\",\n    \"imageUrl\": \"\",\n    \"createdAt\": \"2026-08-10T00:00:00.000Z\",\n    \"updatedAt\": \"2026-08-10T00:05:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Recipe",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/{{recipeId}}",
+        "description": "Deletes a recipe by ID and returns the deleted recipe."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "body": "{\n  \"success\": true,\n  \"message\": \"Recipe deleted successfully\",\n  \"data\": {\n    \"id\": \"66a000000000000000000001\",\n    \"title\": \"Paneer Butter Masala - Updated\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Error Examples",
+      "item": [
+        {
+          "name": "Invalid Recipe ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/invalid-id",
+            "description": "Demonstrates validation for an invalid MongoDB ObjectId."
+          },
+          "response": [
+            {
+              "name": "400 Bad Request",
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"success\": false,\n  \"message\": \"Invalid recipe ID\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Recipe Not Found",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/66a000000000000000000099",
+            "description": "Demonstrates a valid ObjectId that does not exist."
+          },
+          "response": [
+            {
+              "name": "404 Not Found",
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "body": "{\n  \"success\": false,\n  \"message\": \"Recipe not found\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Validation Error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"A\",\n  \"description\": \"x\",\n  \"ingredients\": [],\n  \"instructions\": \"short\",\n  \"prepTime\": 0,\n  \"cookTime\": -1,\n  \"servings\": 0\n}"
+            },
+            "url": "{{baseUrl}}"
+          },
+          "description": "Demonstrates Mongoose validation errors."
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{healthUrl}}",
+        "description": "Optional server health check. Recommended direct URL: http://localhost:5000/health"
+      }
+    }
+  ]
+}
