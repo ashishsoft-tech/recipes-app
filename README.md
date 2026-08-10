@@ -1,4 +1,4 @@
-# Recipes App - Node.js CRUD API
+# 3 - Node.js CRUD API
 
 A complete **Recipes CRUD REST API** built with:
 
